@@ -19,20 +19,29 @@ def Y_urls(sl:list()) -> list():
         su.append(yahoofin+s)
     return su
 
-stocks_u = Y_urls(stocks_l)
+stocks_u: list() = Y_urls(stocks_l)
 
-def stock_price(stock_url: str)-> str:
-    y_aapl = requests.get(stock_url).text
-    aapl_soup = bs(y_aapl, 'lxml')
-    price = aapl_soup.find('div', attrs={'id': 'quote-header-info'}).find(attrs={'data-reactid':'49'}).get_text()
-    return price
+def stock_prices(sl:list(), su: list())-> dict():
+    
+    price_l = []
+    p_d = {}
+    for url in su:
+        rs = requests.get(url).text
+        aapl_soup = bs(rs, 'lxml')
+        price_l.append(aapl_soup.find('div', attrs={'id': 'quote-header-info'}).find(attrs={'data-reactid':'49'}).get_text())
+    p_d = dict(zip(stocks_l, price_l))
+    return p_d
 
-sp = stock_price(stock)
+stock_dict: dict() = stock_prices(stocks_l, stocks_u)
 
-aapl_dframe2 = pd.DataFrame({appleinc:[sp]}, index = [datetime.date.today()])
-aapl_dframe2 = aapl_dframe2.transpose()
-aapl_dframe2
+s_c = 'Price '+ str(datetime.date.today())
 
-aapl_dframe2.to_csv('aapl_p.csv')
+stock_df = df.from_dict(stock_dict, orient='index', columns= [s_c])
+
+stock_df.to_csv('stock_df1.csv')
+
+
+
+
 
 
