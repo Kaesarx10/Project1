@@ -3,20 +3,11 @@
 
 
 import requests
-
-
-
-
 import pandas as pd
-
 from bs4 import BeautifulSoup as bs
-
 import csv
-
 import numpy as np
-
 from pandas import DataFrame as df
-
 import datetime
 
 yahoofin = 'https://finance.yahoo.com/quote/'
@@ -43,5 +34,3 @@ aapl_dframe2
 
 
 aapl_dframe2.to_csv('aapl_p.csv')
-
-
