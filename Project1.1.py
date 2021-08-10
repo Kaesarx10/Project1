@@ -71,13 +71,3 @@ aapl_dframe.to_csv('aapl_2.csv')
 
 pd.DataFrame({datetime.date.today():[price]}, index = [appleinc])
 
-
-
-with open('/Users/cesarvenzor/Documents/Projects/aapl_4.csv', 'w') as aapl_4:
-    csv.writer(aapl_4).writerow([aapl_dframe])
-
-
-=
-
-
-
