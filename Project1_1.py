@@ -33,19 +33,19 @@ def create_dataframe(sd: dict()):
     s_c = 'Price '+ str(datetime.date.today())
     return df.from_dict(sd, orient='index', columns= [s_c])
 
-stocks_l = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
+stock_list = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
 
-stocks_u: list() = y_urls(stocks_l)
+stock_urls : list() = y_urls(stock_list)
 
-price_l: list() = price_list(stocks_l)
+price_list: list() = price_list(stock_list)
 
-sp_dict: dict() = stock_price_dict(stock_l, stocks_u)
+sp_dict: dict() = stock_price_dict(stock_list, stock_urls)
 
 stock_df = create_dataframe(sp_dict)
 
-csv_file = 'stock_df1.csv'
+csv_file_name = 'stock_df1.csv'
 
-stock_df.to_csv(csv_file)
+stock_df.to_csv(csv_file_name)
 
 
 
