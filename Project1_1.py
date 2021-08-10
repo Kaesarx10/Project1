@@ -10,20 +10,16 @@ import numpy as np
 from pandas import DataFrame as df
 import datetime
 
-#yahoofin = 'https://finance.yahoo.com/quote/'
-
 stocks_l = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
-stocks_u = []
 
-#appleinc = 'AAPL'
-
-def Y_urls(sl:list(), su: list() ) -> list():
+def Y_urls(sl:list()) -> list():
     yahoofin = 'https://finance.yahoo.com/quote/'
+    su = []
     for s in sl:
         su.append(yahoofin+s)
+    return su
 
-stock = yahoofin+appleinc
-stock
+stocks_u = Y_urls(stocks_l)
 
 def stock_price(stock_url: str)-> str:
     y_aapl = requests.get(stock_url).text
