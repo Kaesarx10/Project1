@@ -17,14 +17,15 @@ def y_urls(sl:list()) -> list():
         su.append(yahoofin+s)
     return su
 
-def stock_prices(sl:list(), su: list())-> dict():
-    
+def price_list(su: list()):
     price_l = []
-    p_d = {}
     for url in su:
         rs = requests.get(url).text
         aapl_soup = bs(rs, 'lxml')
         price_l.append(aapl_soup.find('div', attrs={'id': 'quote-header-info'}).find(attrs={'data-reactid':'49'}).get_text())
+    return price_l
+
+def stock_price_dict(sl:list(), su: list())-> dict():
     p_d = dict(zip(stocks_l, price_l))
     return p_d
 
@@ -34,13 +35,17 @@ def create_dataframe(sd: dict()):
 
 stocks_l = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
 
-stocks_u: list() = Y_urls(stocks_l)
+stocks_u: list() = y_urls(stocks_l)
 
-stock_dict: dict() = stock_prices(stocks_l, stocks_u)
+price_l: list() = price_list(stocks_l)
 
-stock_df = create_dataframe(stock_dict)
+sp_dict: dict() = stock_price_dict(stock_l, stocks_u)
 
-stock_df.to_csv('stock_df1.csv')
+stock_df = create_dataframe(sp_dict)
+
+csv_file = 'stock_df1.csv'
+
+stock_df.to_csv(csv_file)
 
 
 
