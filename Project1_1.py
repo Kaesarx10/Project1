@@ -10,9 +10,17 @@ import numpy as np
 from pandas import DataFrame as df
 import datetime
 
-yahoofin = 'https://finance.yahoo.com/quote/'
+#yahoofin = 'https://finance.yahoo.com/quote/'
 
-appleinc = 'AAPL'
+stocks_l = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
+stocks_u = []
+
+#appleinc = 'AAPL'
+
+def Y_urls(sl:list(), su: list() ) -> list():
+    yahoofin = 'https://finance.yahoo.com/quote/'
+    for s in sl:
+        su.append(yahoofin+s)
 
 stock = yahoofin+appleinc
 stock
