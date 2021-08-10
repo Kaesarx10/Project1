@@ -71,3 +71,29 @@ aapl_dframe.to_csv('aapl_2.csv')
 
 pd.DataFrame({datetime.date.today():[price]}, index = [appleinc])
 
+stock = yahoofin+appleinc
+stock
+
+
+
+def stock_price(stock_url: str)-> str:
+    y_aapl = requests.get(stock_url).text
+    aapl_soup = bs(y_aapl, 'lxml')
+    price = aapl_soup.find('div', attrs={'id': 'quote-header-info'}).find(attrs={'data-reactid':'49'}).get_text()
+    return price
+
+
+
+sp = stock_price(stock)
+
+
+
+aapl_dframe2 = pd.DataFrame({appleinc:[sp]}, index = [datetime.date.today()])
+aapl_dframe2 = aapl_dframe2.transpose()
+aapl_dframe2
+
+
+
+aapl_dframe2.to_csv('aapl_p.csv')
+
+
