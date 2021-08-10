@@ -10,16 +10,12 @@ import numpy as np
 from pandas import DataFrame as df
 import datetime
 
-stocks_l = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
-
 def Y_urls(sl:list()) -> list():
     yahoofin = 'https://finance.yahoo.com/quote/'
     su = []
     for s in sl:
         su.append(yahoofin+s)
     return su
-
-stocks_u: list() = Y_urls(stocks_l)
 
 def stock_prices(sl:list(), su: list())-> dict():
     
@@ -32,14 +28,19 @@ def stock_prices(sl:list(), su: list())-> dict():
     p_d = dict(zip(stocks_l, price_l))
     return p_d
 
+def create_dataframe(sd: dict()):
+    s_c = 'Price '+ str(datetime.date.today())
+    return df.from_dict(sd, orient='index', columns= [s_c])
+
+stocks_l = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
+
+stocks_u: list() = Y_urls(stocks_l)
+
 stock_dict: dict() = stock_prices(stocks_l, stocks_u)
 
-s_c = 'Price '+ str(datetime.date.today())
-
-stock_df = df.from_dict(stock_dict, orient='index', columns= [s_c])
+stock_df = create_dataframe(stock_dict)
 
 stock_df.to_csv('stock_df1.csv')
-
 
 
 
