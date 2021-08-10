@@ -10,7 +10,7 @@ import numpy as np
 from pandas import DataFrame as df
 import datetime
 
-def Y_urls(sl:list()) -> list():
+def y_urls(sl:list()) -> list():
     yahoofin = 'https://finance.yahoo.com/quote/'
     su = []
     for s in sl:
