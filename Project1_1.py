@@ -24,18 +24,27 @@ def price_list(su: list()):
     return price_l
 
 #create dataframe from price list, and stock list.
-def stock_df(price_l: list(), sl: list()):
+def stock_dframe(price_l: list(), sl: list()):
     l_df = df(price_l, index = sl, columns = [datetime.date.today()])
     return l_df
 
+# update dataframe from price list, and stock list.
+def update_df(dframe, price_l):
+    dframe[datetime.date.today()] = price_l
+    return dframe
+
 
 stock_list = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
+
+price_df = df(index=stocks_list)
 
 stock_urls : list() = y_urls(stock_list)
 
 prices_: list() = price_list(stock_urls)
 
-stock_df = create_dataframe(prices_, stock_list)
+stock_df = stock_dframe(prices_, stock_list)
+
+upated_stock_df = update_df(stock_df, price_list)
 
 csv_file_name = 'stock_df1.csv'
 
