@@ -23,15 +23,11 @@ def price_list(su: list()):
         price_l.append(aapl_soup.find('div', attrs={'id': 'quote-header-info'}).find(attrs={'data-reactid':'49'}).get_text())
     return price_l
 
-#creates dictionary stocks as keys and prices as values
-def stock_price_dict(sl:list(), su: list())-> dict():
-    p_d = dict(zip(stocks_l, price_l))
-    return p_d
+#create dataframe from price list, and stock list.
+def stock_df(price_l: list(), sl: list()):
+    l_df = df(price_l, index = sl, columns = [datetime.date.today()])
+    return l_df
 
-#turns dictionary into a pandas dataframe
-def create_dataframe(sd: dict()):
-    s_c = 'Price '+ str(datetime.date.today())
-    return df.from_dict(sd, orient='index', columns= [s_c])
 
 stock_list = ['AAPL', 'MSFT', 'TSM', 'NVDA', 'FB']
 
@@ -39,9 +35,7 @@ stock_urls : list() = y_urls(stock_list)
 
 prices_: list() = price_list(stock_urls)
 
-sp_dict: dict() = stock_price_dict(stock_list, prices_)
-
-stock_df = create_dataframe(sp_dict)
+stock_df = create_dataframe(prices_, stock_list)
 
 csv_file_name = 'stock_df1.csv'
 
